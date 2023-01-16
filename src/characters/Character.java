@@ -1,7 +1,6 @@
 package characters;
 
-import interfaces.*;
-import places.Flat;
+import interfaces.Sayable;
 import places.Place;
 import things.SmallThing;
 

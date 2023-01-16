@@ -1,5 +1,7 @@
 package things;
 
+import things.SmallThing;
+
 public class Lamp extends SmallThing {
     private boolean isOn;
 

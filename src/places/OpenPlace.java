@@ -1,5 +1,7 @@
 package places;
 
+import places.Place;
+
 import java.util.ArrayList;
 import java.util.List;
 

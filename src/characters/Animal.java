@@ -24,7 +24,6 @@ public class Animal extends Character implements IPettable {
 
     private boolean isHaveTail;
 
-
     public void waveTail() {
         if (this.isHaveTail) {
             System.out.println(this + " виляет хвостом " );
@@ -32,9 +31,7 @@ public class Animal extends Character implements IPettable {
         // Для вывода текста
         System.out.println();
     }
-    public void walkOnHindLegs() {
-        System.out.print(this + " ходит на задних лапах ");
-    }
+
 
 
     @Override

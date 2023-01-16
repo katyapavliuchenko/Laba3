@@ -2,7 +2,6 @@ package characters;
 
 import java.util.*;
 
-import Exceptions.AddCharacterToFurnitureException;
 import interfaces.*;
 import places.*;
 import things.SmallThing;

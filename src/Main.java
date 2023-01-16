@@ -1,13 +1,12 @@
-import Exceptions.AddCharacterToFurnitureException;
-import Location.*;
 import characters.*;
 import enums.*;
-import places.*;
-import things.*;
+import places.Flat;
+import things.Cell;
+import things.Lamp;
+import places.OpenPlace;
+import things.SmallThing;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -36,7 +35,13 @@ public class Main {
         SmallThing chisels = new SmallThing("Стамески");
         SmallThing saws = new SmallThing("Пилы");
         SmallThing tub = new SmallThing("Лохань");
-        SmallThing cell = new SmallThing("Клетка с чижиком");
+        Animal bird = new Animal("чижик") {
+            @Override
+            public void say() {
+                System.out.println(this + " чирикает");
+            }
+        };
+        Cell cell = new Cell("Клетка", bird);
         loungeOfCarpenter.addSmallThings(Arrays.asList(shavings, jointers, chisels, saws, cell));
         bathroomOfCarpenter.addSmallThing(tub);
 

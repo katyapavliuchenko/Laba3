@@ -1,10 +1,9 @@
 package places;
 
 import java.util.*;
-import characters.*;
+
 import enums.*;
-import interfaces.*;
-import things.SmallThing;
+import places.Place;
 
 public class ClosedPlace extends Place {
     double square;

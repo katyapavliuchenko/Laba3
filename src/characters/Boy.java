@@ -1,6 +1,5 @@
 package characters;
 
-import interfaces.*;
 import places.Flat;
 import things.SmallThing;
 
@@ -32,13 +31,13 @@ public class Boy extends Person {
         System.out.println(this + " поднял " + dog + " из-под " + furniture + " за " + bodyPart);
 
     }
-    public void orderToWalkOnHindLegs(Animal animal) {
-        animal.walkOnHindLegs();
+    public void orderToWalkOnHindLegs(Dog dog) {
+        dog.walkOnHindLegs();
         System.out.println("по приказу " + this);
     }
 
-    public void orderToSniff(Animal animal, SmallThing smallThing) {
-        animal.sniff(smallThing);
+    public void orderToSniff(Dog dog, SmallThing smallThing) {
+        dog.sniff(smallThing);
         System.out.println("по приказу " + this);
     }
 

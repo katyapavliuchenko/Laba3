@@ -3,7 +3,8 @@ package characters;
 import java.util.*;
 
 import interfaces.ILieable;
-import places.*;
+import places.ClosedPlace;
+import places.Flat;
 import things.SmallThing;
 
 public class Dog extends Animal {
@@ -52,7 +53,9 @@ public class Dog extends Animal {
     public void stretchLegs() {
         System.out.println(this + " протянула " + BodyPartsOfDogs.HIND_LEGS);
     }
-
+    public void walkOnHindLegs() {
+        System.out.print(this + " ходит на " + BodyPartsOfDogs.HIND_LEGS);
+    }
     @Override
     public void say() {
         System.out.println(this + " лает ");
@@ -77,7 +80,7 @@ public class Dog extends Animal {
         people[0] = stranger;
         people[1] = carpenter;
         for (int i = 0; i < people.length; i++) {
-            List<ClosedPlace> places = people[i].getPlaces();
+            ArrayList<ClosedPlace> places = people[i].getPlaces();
             for (ClosedPlace place : places) {
                 place.showViews();
                 if (place instanceof Flat) {

@@ -1,7 +1,5 @@
 package characters;
 
-import characters.Animal;
-import characters.Boy;
 import things.SmallThing;
 
 public class Focus {
