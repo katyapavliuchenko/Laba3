@@ -1,6 +1,8 @@
 package characters;
 
+import interfaces.ILieable;
 import interfaces.IPettable;
+import places.Flat;
 
 public class Animal extends Character implements IPettable {
     // Конструкторы
@@ -34,13 +36,31 @@ public class Animal extends Character implements IPettable {
         System.out.print(this + " ходит на задних лапах ");
     }
 
+
     @Override
     public void say(String phrase) {
         System.out.println(this + " издаёт звуки " + phrase);
     }
 
     @Override
+    public void say() {
+        System.out.println(this + " издаёт звуки ");
+    }
+
+    @Override
     public boolean checkPet() {
         return false;
+    }
+
+    public void lieDown(ILieable lieable)  {
+        if (lieable.checkLieabilityForAnimal()) {
+            System.out.println(this + " лег на " + lieable);
+            this.setHappiness(80);
+            if (lieable instanceof Flat.Room.Furniture) {
+                ((Flat.Room.Furniture)lieable).addCharacter(this);
+            }
+        } else {
+            System.out.println(this + "не может лечь на " + lieable);
+        }
     }
 }

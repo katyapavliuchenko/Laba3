@@ -8,20 +8,18 @@ import enums.*;
 import interfaces.*;
 import things.SmallThing;
 
-
-
 public class Flat extends ClosedPlace {
 
     // Конструкторы
-    public Flat(String name) {
-        super(name);
+    public Flat(String name, double square, double height) {
+        super(name, square, height);
     }
 
-    public Flat(String name, List<View> views, List<Smell> smells) {
-        super(name, views, smells);
+    public Flat(String name, View view, List<Smell> smells, double square, double height) {
+        super(name, view, smells, square, height);
     }
-    public Flat(String name, List<View> views) {
-        super(name, views);
+    public Flat(String name, List<View> views, double square, double height) {
+        super(name, views, square, height);
     }
 
     // Поля
@@ -147,17 +145,23 @@ public class Flat extends ClosedPlace {
 
 
 
-        public class Furniture implements ILieable, ISittable, IHoldable,    IPuttableAbout {
+        public class Furniture implements IHoldable, ILieable, IPuttableAbout {
 
             // Конструкторы
             public Furniture(String name) {
                 this.name = name;
                 Room.this.addFurniture(this);
             }
+            public Furniture(String name, int mass) {
+                this.name = name;
+                this.mass = mass;
+                Room.this.addFurniture(this);
+            }
 
             // Поля
             private String name;
             private List<Character> characters = new ArrayList();
+            private int mass;
 
 
             // Геттеры и сеттеры
@@ -168,6 +172,9 @@ public class Flat extends ClosedPlace {
                 return characters;
             }
 
+            public int getMass() {
+                return mass;
+            }
 
             // Методы
             @Override
@@ -191,21 +198,64 @@ public class Flat extends ClosedPlace {
             }
 
             @Override
+            public boolean checkHoldability() {
+                return true;
+            }
+
+            @Override
+            public boolean checkLieabilityForAnimal() {
+                return true;
+            }
+            @Override
+            public boolean checkLieabilityForPerson() {
+                return true;
+            }
+
+            @Override
+            public boolean checkPutAboutAbility() {
+                return true;
+            }
+
+            @Override
             public String toString() {
                 return name;
             }
+
         }
 
-
         public class Sofa extends Furniture {
-            public Sofa(String name) {
-                super(name);
+            public Sofa(String name, int mass) {
+                super(name, mass);
+            }
+            @Override
+            public boolean checkHoldability() {
+                return false;
+            }
+            @Override
+            public boolean checkLieabilityForAnimal() {
+                return true;
+            }
+            @Override
+            public boolean checkLieabilityForPerson() {
+                return true;
             }
         }
 
         public class Armchair extends Furniture {
-            public Armchair(String name) {
-                super(name);
+            public Armchair(String name, int mass) {
+                super(name, mass);
+            }
+            @Override
+            public boolean checkHoldability() {
+                return this.getMass() < 20;
+            }
+            @Override
+            public boolean checkLieabilityForAnimal() {
+                return true;
+            }
+            @Override
+            public boolean checkLieabilityForPerson() {
+                return true;
             }
         }
 
@@ -213,11 +263,36 @@ public class Flat extends ClosedPlace {
             public Carpet(String name) {
                 super(name);
             }
+
+            @Override
+            public boolean checkHoldability() {
+                return true;
+            }
+            @Override
+            public boolean checkLieabilityForAnimal() {
+                return true;
+            }
+            @Override
+            public boolean checkLieabilityForPerson() {
+                return true;
+            }
         }
 
         public class Mattress extends Furniture  {
             public Mattress(String name) {
                 super(name);
+            }
+            @Override
+            public boolean checkHoldability() {
+                return true;
+            }
+            @Override
+            public boolean checkLieabilityForAnimal() {
+                return true;
+            }
+            @Override
+            public boolean checkLieabilityForPerson() {
+                return true;
             }
         }
 
@@ -225,11 +300,35 @@ public class Flat extends ClosedPlace {
             public Table(String name) {
                 super(name);
             }
-        }
+            @Override
+            public boolean checkHoldability() {
+                return this.getMass() < 20;
+            }
+            @Override
+            public boolean checkLieabilityForAnimal() {
+                return true;
+            }
+            @Override
+            public boolean checkLieabilityForPerson() {
+                return false;
+            }
 
+        }
         public class CraftingTable extends Table {
             public CraftingTable(String name) {
                 super(name);
+            }
+            @Override
+            public boolean checkHoldability() {
+                return this.getMass() < 20;
+            }
+            @Override
+            public boolean checkLieabilityForAnimal() {
+                return false;
+            }
+            @Override
+            public boolean checkLieabilityForPerson() {
+                return false;
             }
         }
 

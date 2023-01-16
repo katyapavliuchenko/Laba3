@@ -2,13 +2,7 @@ package characters;
 
 import java.util.*;
 
-import Exceptions.AddCharacterToFurnitureException;
-import Location.Location;
 import interfaces.ILieable;
-import interfaces.IPullable;
-import interfaces.ISittable;
-import interfaces.ISittableNear;
-import org.w3c.dom.ls.LSOutput;
 import places.*;
 import things.SmallThing;
 
@@ -26,9 +20,9 @@ public class Dog extends Animal {
     }
 
     // Поля
-    public enum BodyPartsOfDogs implements IPullable {
+    public enum BodyPartsOfDogs {
         TAIL("хвост"), HIND_LEGS("задние лапы");
-        String title;
+        final String title;
         private BodyPartsOfDogs(String title) {
             this.title = title;
         }
@@ -38,7 +32,7 @@ public class Dog extends Animal {
             return title;
         }
     }
-    private Set<BodyPartsOfDogs> bodyPartsOfDogs = EnumSet.of(BodyPartsOfDogs.TAIL, BodyPartsOfDogs.HIND_LEGS);
+    private final Set<BodyPartsOfDogs> bodyPartsOfDogs = EnumSet.of(BodyPartsOfDogs.TAIL, BodyPartsOfDogs.HIND_LEGS);
 
 
     // Геттеры и сеттеры
@@ -48,13 +42,7 @@ public class Dog extends Animal {
     }
 
     // Методы
-    public void lieDown(ILieable lieable)  {
-        System.out.println(this + " легла на " + lieable);
-        this.setHappiness(80);
-        if (lieable instanceof Flat.Room.Furniture) {
-            ((Flat.Room.Furniture)lieable).addCharacter(this);
-        }
-    }
+
     public void getUp(ILieable lieable) {
         System.out.println(this + " встала с " + lieable);
         if (lieable instanceof Flat.Room.Furniture) {
@@ -65,20 +53,22 @@ public class Dog extends Animal {
         System.out.println(this + " протянула " + BodyPartsOfDogs.HIND_LEGS);
     }
 
+    @Override
     public void say() {
         System.out.println(this + " лает ");
         if (this.getPain() > 50) {
             System.out.println(this + " визжит ");
         }
     }
-    public void sitNear(ISittableNear sittable) {
-        System.out.println(this + " сидит перед " + sittable);
+    public void sitNear(Character character) {
+        System.out.println(this + " сидит перед " + character);
     }
 
     @Override
     public boolean checkPet() {
         return true;
     }
+
     public void think(Stranger stranger, Carpenter carpenter) {
         System.out.println(this + " думает, где лучше: у " + stranger + " или у " + carpenter);
         System.out.println();
@@ -125,18 +115,19 @@ public class Dog extends Animal {
             System.out.println(this + " вспоминает... ");
             System.out.println();
             Dog pastDog = new Dog("Каштанка", 3, true);
-            Flat flatOfCarpenter = new Flat("Квартира столяра");
+            Carpenter pastCarpenter = new Carpenter("Лука Александрыч", 39, false);
+            Flat flatOfCarpenter = new Flat("Квартира столяра", 35, 3);
             Flat.Room lounge = flatOfCarpenter.new Room("Гостиная");
             Flat.Room.CraftingTable craftingTable = lounge.new CraftingTable("Верстак");
             flatOfCarpenter.addCharacter(pastDog);
-            flatOfCarpenter.addCharacter(carpenter);
-            System.out.println(this + " вспоминает " + carpenter + ", " + boy + " уютное местечко под " + craftingTable);
-            carpenter.doSomethingInWinterEvenings();
-            boy.pickUpPet(pastDog, Dog.BodyPartsOfDogs.HIND_LEGS, craftingTable);
+            flatOfCarpenter.addCharacter(pastCarpenter);
+            System.out.println(this + " вспоминает " + carpenter + ", " + boy + ", " + " уютное местечко под " + craftingTable);
+            pastCarpenter.doSomethingInWinterEvenings();
+            boy.pickUpDog(pastDog, Dog.BodyPartsOfDogs.HIND_LEGS, craftingTable);
             boy.play(pastDog, craftingTable);
             boy.makeHurt(pastDog);
             boy.orderToWalkOnHindLegs(pastDog);
-            boy.pullPet(pastDog, Dog.BodyPartsOfDogs.TAIL);
+            boy.pullDog(pastDog, Dog.BodyPartsOfDogs.TAIL);
             boy.orderToSniff(pastDog, new SmallThing("табак"));
             Focus focus = new Focus();
             focus.focus(boy, new SmallThing("кусочек мяса на ниточке"));

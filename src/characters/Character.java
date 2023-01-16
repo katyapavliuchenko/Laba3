@@ -1,12 +1,14 @@
 package characters;
 
 import interfaces.*;
+import places.Flat;
+import places.Place;
 import things.SmallThing;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class Character implements ISittable, ISittableNear, ISeeable, IHearable {
+public abstract class Character implements Sayable {
 
     // Конструкторы
     public Character(String name) {
@@ -75,11 +77,14 @@ public abstract class Character implements ISittable, ISittableNear, ISeeable, I
         }
     }
 
-    public abstract void say(String phrase);
+    @Override
+    public void say(String phrase){
+        System.out.println(this + "говорит " + phrase);
+    };
 
 
-    public void lookAt(ISeeable whatILookAt) {
-        System.out.println(this + " смотрит на " + whatILookAt);
+    public void lookAt(Person person) {
+        System.out.println(this + " смотрит на " + person);
 
     }
     public void closeEyes() {
@@ -89,8 +94,8 @@ public abstract class Character implements ISittable, ISittableNear, ISeeable, I
     }
 
 
-    public void hear(String whatSay, IHearable whoSay, ISoundable whereSay) {
-        System.out.println(this + " слышит " + whatSay + " от " + whoSay + " с " + whereSay);
+    public void hear(String whatSay, Sayable whoSay, Place place) {
+        System.out.println(this + " слышит " + whatSay + " от " + whoSay + " с " + place);
     }
 
     public void wantToSay() {
@@ -102,8 +107,8 @@ public abstract class Character implements ISittable, ISittableNear, ISeeable, I
         }
     }
 
-    public void sniff(ISmellable smellable) {
-        System.out.print(this + " нюхает " + smellable + " ");
+    public void sniff(SmallThing smallThing) {
+        System.out.print(this + " нюхает " + smallThing + " ");
     }
     public void addSmallThing(SmallThing smallThing) {
         this.smallThings.add(smallThing);
@@ -120,8 +125,6 @@ public abstract class Character implements ISittable, ISittableNear, ISeeable, I
         character.removeSmallThing(smallThing);
         System.out.println(this + " забирает у " + character + " " + smallThing);
     }
-
-
 
     // Переопределение методов класса Object
     @Override

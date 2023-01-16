@@ -4,10 +4,9 @@ import java.util.*;
 
 import characters.Character;
 import enums.*;
-import interfaces.*;
 
 
-public abstract class Place implements ISeeable, ISoundable {
+public abstract class Place {
 
     // Конструкторы
     public Place(String name) {
@@ -18,13 +17,18 @@ public abstract class Place implements ISeeable, ISoundable {
         this.views.addAll(views);
         this.smells.addAll(smells);
     }
+    public Place(String name, View view, List<Smell> smells) {
+        this.name = name;
+        this.views.add(view);
+        this.smells.addAll(smells);
+    }
     public Place(String name, List<View> views) {
         this.name = name;
         this.views.addAll(views);
     }
 
     // Поля
-    private String name;
+    private final String name;
     private List<Character> characters = new ArrayList();
     private List<View> views = new ArrayList();
     private List<Smell> smells = new ArrayList();

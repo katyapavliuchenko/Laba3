@@ -8,7 +8,7 @@ import places.*;
 import things.SmallThing;
 
 
-public class Person extends Character implements IHoldable {
+public class Person extends Character {
 
     // Конструкторы
     public Person(String name) {
@@ -27,25 +27,17 @@ public class Person extends Character implements IHoldable {
     }
 
     // Методы
-    public void showPlaces() {
-        System.out.println(getPlaces());
-    }
     public void ownPlace(ClosedPlace place) {
         places.add(place);
     }
-    public void sitDown(ISittable sittable) {
-        System.out.println(this + " сидит на " + sittable);
-        if (sittable instanceof Flat.Room.Furniture) {
-            ((Flat.Room.Furniture)sittable).addCharacter(this);
-        }
+    public void sitDown(Flat.Room.Furniture furniture) {
+        System.out.println(this + " сидит на " + furniture);
+        furniture.addCharacter(this);
     }
-    public void sitUp(ISittable sittable) {
-        System.out.println(this + " встал с " + sittable);
-        if (sittable instanceof Flat.Room.Furniture) {
-            ((Flat.Room.Furniture)sittable).removeCharacter(this);;
-        }
+    public void sitUp(Flat.Room.Furniture furniture) {
+        System.out.println(this + " встал с " + furniture);
+        furniture.removeCharacter(this);
     }
-
 
     public void goOut(Place place) {
         System.out.println(this + " вышел из " + place);
@@ -57,24 +49,38 @@ public class Person extends Character implements IHoldable {
         place.getCharacters().add(this);
     }
 
-    public void moveSomething(IHoldable holdable, Place placeFrom, Place placeTo) {
-        this.comeIn(placeFrom);
-        System.out.println(this + " взял " + holdable);
-        this.goOut(placeFrom);
-        this.comeIn(placeTo);
-        if (holdable instanceof Flat.Room.Furniture) {
-            ((Flat.Room)placeFrom).removeFurniture(((Flat.Room.Furniture)holdable));
-            ((Flat.Room)placeTo).addFurniture(((Flat.Room.Furniture)holdable));
-        }
-        else if (holdable instanceof SmallThing) {
-            ((Flat.Room)placeFrom).removeSmallThing(((SmallThing)holdable));
-            ((Flat.Room)placeTo).addSmallThing(((SmallThing)holdable));
+    public void hold(IHoldable holdable) {
+        if (holdable.checkHoldability()) {
+            System.out.println(this + "взял " + holdable);
+        } else{
+            System.out.println(this + "не может поднять " + holdable + " !");
         }
     }
 
-
     public void putAbout(IHoldable holdable, IPuttableAbout puttable) {
-        System.out.println(this + " кладёт " + holdable + " около " + puttable);
+        if (puttable.checkPutAboutAbility()) {
+            System.out.println(this + " кладёт " + holdable + " около " + puttable);
+        }
+    }
+    public void moveSomething(IHoldable holdable, Place placeFrom, Place placeTo) {
+        if (holdable.checkHoldability()) {
+            this.comeIn(placeFrom);
+            this.hold(holdable);
+            this.goOut(placeFrom);
+            this.comeIn(placeTo);
+            if (holdable instanceof Flat.Room.Furniture) {
+                ((Flat.Room)placeFrom).removeFurniture(((Flat.Room.Furniture)holdable));
+                ((Flat.Room)placeTo).addFurniture(((Flat.Room.Furniture)holdable));
+            }
+            else if (holdable instanceof SmallThing) {
+                ((Flat.Room)placeFrom).removeSmallThing(((SmallThing)holdable));
+                ((Flat.Room)placeTo).addSmallThing(((SmallThing)holdable));
+            }
+        }
+        else {
+            System.out.println(this + "не сможет поднять " + holdable);
+        }
+
     }
 
     @Override
@@ -85,15 +91,16 @@ public class Person extends Character implements IHoldable {
         else {
             System.out.println(this + " говорит:" + phrase);
         }
-
     }
-
-
-
+    @Override
+    public void say() {
+        System.out.println(this + "говорит");
+    }
 
     public void hit(Character character) {
         System.out.println(this + " ударил " + character);
     }
+
 
     public void stomp() {
         System.out.println(this + " затопал ногами ");
@@ -107,14 +114,8 @@ public class Person extends Character implements IHoldable {
         System.out.println(this + " не затопал ногами ");
     }
 
-
-
-
-
     public void laugh() {
         System.out.println(this + " смеётся");
     }
-
-
 
 }

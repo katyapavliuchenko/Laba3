@@ -28,10 +28,14 @@ public class PetOwner extends Person {
 
 
     public void ownPet(Animal animal) {
-        pets.add(animal);
-        System.out.println(this + " становится хозяином " + animal);
+        if (animal.checkPet()) {
+            pets.add(animal);
+            System.out.println(this + " становится хозяином " + animal);
+        }
+        else {
+            System.out.println(this + "не может стать хозяином " + animal);
+        }
     }
-
     public void stopOwnPet(Animal animal) {
         pets.remove(animal);
         System.out.println(this + " больше не хозяин " + animal);

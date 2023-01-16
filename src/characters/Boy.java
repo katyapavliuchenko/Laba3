@@ -2,6 +2,7 @@ package characters;
 
 import interfaces.*;
 import places.Flat;
+import things.SmallThing;
 
 public class Boy extends Person {
     public Boy(String name) {
@@ -27,24 +28,23 @@ public class Boy extends Person {
         }
     }
 
-    public void pickUpPet(Animal animal, IPullable bodyPart, IPuttableAbout puttableAbout) {
-        System.out.println(this + " поднял " + animal + " из-под " + puttableAbout + " за " + bodyPart);
+    public void pickUpDog(Dog dog, Dog.BodyPartsOfDogs bodyPart, Flat.Room.Furniture furniture) {
+        System.out.println(this + " поднял " + dog + " из-под " + furniture + " за " + bodyPart);
 
     }
-
     public void orderToWalkOnHindLegs(Animal animal) {
         animal.walkOnHindLegs();
         System.out.println("по приказу " + this);
     }
 
-    public void orderToSniff(Animal animal, ISmellable smellable) {
-        animal.sniff(smellable);
+    public void orderToSniff(Animal animal, SmallThing smallThing) {
+        animal.sniff(smallThing);
         System.out.println("по приказу " + this);
     }
 
-    public void pullPet(Animal animal, IPullable bodyPart) {
-        System.out.println(this + " дёргает " + animal + " за " + bodyPart);
-        animal.say("Гав-гав");
+    public void pullDog(Dog dog, Dog.BodyPartsOfDogs bodyPart) {
+        System.out.println(this + " дёргает " + dog + " за " + bodyPart);
+        dog.say();
     }
 
 
