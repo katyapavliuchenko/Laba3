@@ -74,6 +74,11 @@ public class Dog extends Animal {
     public void sitNear(ISittableNear sittable) {
         System.out.println(this + " сидит перед " + sittable);
     }
+
+    @Override
+    public boolean checkPet() {
+        return true;
+    }
     public void think(Stranger stranger, Carpenter carpenter) {
         System.out.println(this + " думает, где лучше: у " + stranger + " или у " + carpenter);
         System.out.println();

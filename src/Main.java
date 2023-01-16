@@ -69,6 +69,7 @@ public class Main {
             public void makeSmoke() {
             }
         });
+        System.out.println(stranger.equals(stranger));
         stranger.sitUp(armchairOfStranger);
         stranger.goOut(loungeOfStranger);
         stranger.moveSomething(mattressOfStranger, bedroomOfStranger, loungeOfStranger);

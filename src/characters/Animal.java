@@ -1,6 +1,8 @@
 package characters;
 
-public class Animal extends Character {
+import interfaces.IPettable;
+
+public class Animal extends Character implements IPettable {
     // Конструкторы
     public Animal(String name) {
         super(name);
@@ -35,5 +37,10 @@ public class Animal extends Character {
     @Override
     public void say(String phrase) {
         System.out.println(this + " издаёт звуки " + phrase);
+    }
+
+    @Override
+    public boolean checkPet() {
+        return false;
     }
 }

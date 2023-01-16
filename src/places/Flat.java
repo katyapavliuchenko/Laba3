@@ -139,6 +139,7 @@ public class Flat extends ClosedPlace {
         public void removeSmallThing(SmallThing smallThing) {
             this.smallThings.remove(smallThing);
         }
+        @Override
         public void addCharacter(Character character) {
             this.getCharacters().add(character);
             Flat.this.addCharacter(character);
