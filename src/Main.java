@@ -1,5 +1,7 @@
+import Exceptions.PersonNotOwnAnimalException;
 import characters.*;
 import enums.*;
+import org.w3c.dom.ls.LSOutput;
 import places.Flat;
 import things.Cell;
 import things.Lamp;
@@ -25,7 +27,6 @@ public class Main {
 
         // квартира столяра
         Flat flatOfCarpenter = new Flat("Квартира столяра", View.FOG, Arrays.asList(Smell.GLUE, Smell.VARNISH, Smell.SHAVINGS), 40,  3.5);
-        Flat.Room kitchenOfCarpenter = flatOfCarpenter.new Room("Кухня");
         Flat.Room loungeOfCarpenter = flatOfCarpenter.new Room("Гостиная");
         Flat.Room bathroomOfCarpenter = flatOfCarpenter.new Room("Ванная комната");
         Flat.Room.Table tableOfCarpenter = loungeOfCarpenter.new Table("Стол");
@@ -50,16 +51,18 @@ public class Main {
         street.addPlace(flatOfStranger);
 
         //создаю персонажей
-        Dog dog = new Dog("Каштанка", 4, true);
-        Stranger stranger = new Stranger("Незнакомец", 30, true);
+        Dog dog = new Dog("Каштанка", 4, "Собака домашняя", true);
+        Stranger stranger = new Stranger("Незнакомец", 30, "Клоун", true);
         stranger.ownPlace(flatOfStranger);
-        Carpenter carpenter = new Carpenter("Столяр Лука Александрыч", 40, false);
+        Carpenter carpenter = new Carpenter("Лука Александрыч", 40, "Столяр", false);
         carpenter.ownPlace(flatOfCarpenter);
-        Boy boy = new Boy("Федюшка");
+        carpenter.addPet(dog);
+        Boy boy = new Boy("Федюшка", 10);
 
         //действия
         carpenter.stopOwnPet(dog);
         stranger.ownPet(dog);
+
         loungeOfStranger.addCharacter(dog);
         loungeOfStranger.addCharacter(stranger);
         flatOfStranger.showCharacters();
@@ -88,14 +91,22 @@ public class Main {
         dog.lieDown(mattressOfStranger);
         dog.closeEyes();
 
-
         Dog randomDog = new Dog("Собака");
         street.addCharacter(randomDog);
         randomDog.say();
         dog.hear("лай", randomDog, street);
         dog.setHappiness(20);
-        dog.wantToSay();
+        dog.wantToAnswer();
         dog.remember(carpenter, boy);
+
+
+
+
+
+
+
+
+
 
 
 

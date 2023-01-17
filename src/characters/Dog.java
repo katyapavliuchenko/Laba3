@@ -8,16 +8,17 @@ import places.Flat;
 import things.SmallThing;
 
 public class Dog extends Animal {
+    public BodyPartsOfDogs tail = BodyPartsOfDogs.TAIL;
+    public BodyPartsOfDogs hindLegs = BodyPartsOfDogs.HIND_LEGS;
 
-    // Конструкторы
     public Dog(String name) {
         super(name);
     }
     public Dog(String name, int age, boolean tail) {
         super(name, age, tail);
     }
-    public Dog(String name, boolean tail) {
-        super(name, tail);
+    public Dog(String name, int age, String specie, boolean tail) {
+        super(name, age, specie, tail);
     }
 
     // Поля
@@ -33,16 +34,7 @@ public class Dog extends Animal {
             return title;
         }
     }
-    private final Set<BodyPartsOfDogs> bodyPartsOfDogs = EnumSet.of(BodyPartsOfDogs.TAIL, BodyPartsOfDogs.HIND_LEGS);
 
-
-    // Геттеры и сеттеры
-
-    public Set<BodyPartsOfDogs> getBodyPartsOfDogs() {
-        return bodyPartsOfDogs;
-    }
-
-    // Методы
 
     public void getUp(ILieable lieable) {
         System.out.println(this + " встала с " + lieable);
@@ -51,10 +43,10 @@ public class Dog extends Animal {
         }
     }
     public void stretchLegs() {
-        System.out.println(this + " протянула " + BodyPartsOfDogs.HIND_LEGS);
+        System.out.println(this + " протянула " + hindLegs);
     }
     public void walkOnHindLegs() {
-        System.out.print(this + " ходит на " + BodyPartsOfDogs.HIND_LEGS);
+        System.out.print(this + " ходит на " + hindLegs);
     }
     @Override
     public void say() {
@@ -62,16 +54,32 @@ public class Dog extends Animal {
         if (this.getPain() > 50) {
             System.out.println(this + " визжит ");
         }
+        if (this.getHappiness() < 10) {
+            System.out.println(this + " скулит ");
+        }
     }
     public void sitNear(Character character) {
-        System.out.println(this + " сидит перед " + character);
-    }
+        if (this.hashCode() == character.hashCode()) {
+            System.out.println(this + " не может сидеть перед самим собой! ");
 
+        }
+        else {
+            System.out.println(this + " сидит перед " + character);
+        }
+
+    }
     @Override
     public boolean checkPet() {
         return true;
     }
-
+    public void wantToAnswer() {
+        if (this.getHappiness() < 30) {
+            System.out.print(this + " не хочет отвечать, потому что ");
+        }
+        else {
+            System.out.println(this + " хочет ответить ");
+        }
+    }
     public void think(Stranger stranger, Carpenter carpenter) {
         System.out.println(this + " думает, где лучше: у " + stranger + " или у " + carpenter);
         System.out.println();
@@ -113,12 +121,11 @@ public class Dog extends Animal {
         System.out.println();
     }
 
-
     public void remember (Carpenter carpenter, Boy boy){
             System.out.println(this + " вспоминает... ");
             System.out.println();
             Dog pastDog = new Dog("Каштанка", 3, true);
-            Carpenter pastCarpenter = new Carpenter("Лука Александрыч", 39, false);
+            Carpenter pastCarpenter = new Carpenter("Лука Александрыч", 39, "Столяр", false);
             Flat flatOfCarpenter = new Flat("Квартира столяра", 35, 3);
             Flat.Room lounge = flatOfCarpenter.new Room("Гостиная");
             Flat.Room.CraftingTable craftingTable = lounge.new CraftingTable("Верстак");
@@ -126,13 +133,21 @@ public class Dog extends Animal {
             flatOfCarpenter.addCharacter(pastCarpenter);
             System.out.println(this + " вспоминает " + carpenter + ", " + boy + ", " + " уютное местечко под " + craftingTable);
             pastCarpenter.doSomethingInWinterEvenings();
-            boy.pickUpDog(pastDog, Dog.BodyPartsOfDogs.HIND_LEGS, craftingTable);
+            boy.pickUpDog(pastDog, pastDog.hindLegs, craftingTable);
             boy.play(pastDog, craftingTable);
             boy.makeHurt(pastDog);
             boy.orderToWalkOnHindLegs(pastDog);
-            boy.pullDog(pastDog, Dog.BodyPartsOfDogs.TAIL);
-            boy.orderToSniff(pastDog, new SmallThing("табак"));
-            Focus focus = new Focus();
+            boy.pullDog(pastDog, pastDog.hindLegs);
+            boy.orderToSniff(pastDog);
+            Boy.Focus focus = new Boy.Focus();
             focus.focus(boy, new SmallThing("кусочек мяса на ниточке"));
+            System.out.print("Воспоминания ярче...");
+            while (Math.random() < 0.4) {
+                System.out.println(" всё ярче...");
+            }
+            this.setHappiness(5);
+            this.say();
     }
+
+
 }

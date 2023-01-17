@@ -14,6 +14,11 @@ public class SmallThing implements IHoldable, IPuttableAbout {
         this.name = name;
         this.smell = smell;
     }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean checkHoldability() {
         return true;

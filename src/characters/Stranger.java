@@ -5,19 +5,14 @@ import things.SmallThing;
 
 public class Stranger extends PetOwner {
 
-    // Конструкторы
+
     public Stranger(String name, boolean isKindToAnimal) {
         super(name, isKindToAnimal);
     }
-    public Stranger(String name, int age, boolean isKindToAnimal) {
-        super(name, age, isKindToAnimal);
+    public Stranger(String name, int age, String profession, boolean isKindToAnimal) {
+        super(name, age, profession, isKindToAnimal);
     }
 
-    // Поля
-
-    // Геттеры и сеттеры
-
-    // Методы
     public void smoke(SmallThing smokeable) {
         System.out.println(this + " курит " + smokeable + "...");
         while (Math.random() < 0.5) {

@@ -6,7 +6,7 @@ public enum View {
     POOR("бедная обстановка"),
     UGLY("некрасивая обстановка");
     String title;
-    View(String title) {
+    private View(String title) {
         this.title = title;
     }
 

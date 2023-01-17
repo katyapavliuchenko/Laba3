@@ -6,7 +6,7 @@ public enum Smell {
     VARNISH("лаком"),
     SHAVINGS("стружками");
     String title;
-    Smell(String title) {
+    private Smell(String title) {
         this.title = title;
     }
 

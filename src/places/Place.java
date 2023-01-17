@@ -2,13 +2,16 @@ package places;
 
 import java.util.*;
 
+import Exceptions.CharacterAlreadyOnFurnitureException;
 import characters.Character;
 import enums.*;
 
 
 public abstract class Place {
-
-    // Конструкторы
+    private final String name;
+    private ArrayList<Character> characters = new ArrayList<>();
+    private ArrayList<View> views = new ArrayList<>();
+    private ArrayList<Smell> smells = new ArrayList<>();
     public Place(String name) {
         this.name = name;
     }
@@ -27,14 +30,6 @@ public abstract class Place {
         this.views.addAll(views);
     }
 
-    // Поля
-    private final String name;
-    private List<Character> characters = new ArrayList();
-    private List<View> views = new ArrayList();
-    private List<Smell> smells = new ArrayList();
-
-
-    // Геттеры и сеттеры
     public String getName() {
         return name;
     }
@@ -86,11 +81,9 @@ public abstract class Place {
     public void addCharacter(Character character) {
         characters.add(character);
     }
-
     public void removeCharacter(Character character) {
         characters.remove(character);
     }
-
 
     @Override
     public String toString() {

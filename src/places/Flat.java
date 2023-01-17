@@ -2,15 +2,16 @@ package places;
 
 import java.util.*;
 
-import Exceptions.AddCharacterToFurnitureException;
+import Exceptions.CharacterAlreadyOnFurnitureException;
+import Exceptions.CharacterAlreadyOnFurnitureException;
 import characters.Character;
 import enums.*;
 import interfaces.*;
 import things.SmallThing;
 
 public class Flat extends ClosedPlace {
+    private ArrayList<Room> rooms = new ArrayList<> ();
 
-    // Конструкторы
     public Flat(String name, double square, double height) {
         super(name, square, height);
     }
@@ -22,18 +23,8 @@ public class Flat extends ClosedPlace {
         super(name, views, square, height);
     }
 
-    // Поля
-    private List<Room> rooms = new ArrayList<> ();
-    // Геттеры и сеттеры
-
-
-    // Методы
     public void addRoom(Room room) {
         rooms.add(room);
-    }
-    public void showRooms() {
-        String name = getName();
-        System.out.println("В " + name + " есть " + rooms);
     }
 
     public void showCharacters() {
@@ -96,30 +87,22 @@ public class Flat extends ClosedPlace {
         System.out.println();
     }
 
-
-
     public class Room extends ClosedPlace {
-
-        // Конструкторы
+        private ArrayList<Furniture> furnitures = new ArrayList<>();
+        private ArrayList<SmallThing> smallThings = new ArrayList<>();
         public Room(String name) {
             super(name);
             Flat.this.addRoom(this);
         }
 
-        // Поля
-        private List<Furniture> furnitures = new ArrayList<>();
-        private List<SmallThing> smallThings = new ArrayList<>();
-
-        // Геттеры и сеттеры
-        public List<Furniture> getFurnitures() {
+        public ArrayList<Furniture> getFurnitures() {
             return furnitures;
         }
 
-        public List<SmallThing> getSmallThings() {
+        public ArrayList<SmallThing> getSmallThings() {
             return smallThings;
         }
 
-        // Методы
         public void addFurniture(Furniture furniture) {
             this.furnitures.add(furniture);
         }
@@ -143,11 +126,10 @@ public class Flat extends ClosedPlace {
             Flat.this.addCharacter(character);
         }
 
-
-
         public class Furniture implements IHoldable, ILieable, IPuttableAbout {
-
-            // Конструкторы
+            private String name;
+            private ArrayList<Character> characters = new ArrayList();
+            private int mass;
             public Furniture(String name) {
                 this.name = name;
                 Room.this.addFurniture(this);
@@ -158,13 +140,6 @@ public class Flat extends ClosedPlace {
                 Room.this.addFurniture(this);
             }
 
-            // Поля
-            private String name;
-            private List<Character> characters = new ArrayList();
-            private int mass;
-
-
-            // Геттеры и сеттеры
             public String getName() {
                 return name;
             }
@@ -176,21 +151,22 @@ public class Flat extends ClosedPlace {
                 return mass;
             }
 
-            // Методы
             @Override
             public void addCharacter(Character character) {
                 List<Character> allCharacters = this.getCharacters();
-                for (Character allCharacter : allCharacters) {
-                    try {
-                        if (character.equals(allCharacter)) {
-                            throw new AddCharacterToFurnitureException("Персонаж уже находится на этой мебели");
+                try {
+                    for (Character allCharacter : characters) {
+                        if (allCharacter.equals(character)) {
+                            throw new CharacterAlreadyOnFurnitureException(character, this);
                         }
                     }
-                    catch (AddCharacterToFurnitureException ex) {
-                        System.out.println("Персонаж уже есть на данной мебели");
-                    }
+                    characters.add(character);
+
                 }
-                characters.add(character);
+                catch (CharacterAlreadyOnFurnitureException ex) {
+                    ex.printStackTrace();
+                }
+
             }
             @Override
             public void removeCharacter(Character character) {
@@ -222,7 +198,6 @@ public class Flat extends ClosedPlace {
             }
 
         }
-
         public class Sofa extends Furniture {
             public Sofa(String name, int mass) {
                 super(name, mass);

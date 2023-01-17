@@ -3,14 +3,10 @@ package characters;
 import things.SmallThing;
 
 public class Carpenter extends PetOwner {
-    public Carpenter(String name, boolean isKindToAnimal) {
-        super(name, isKindToAnimal);
-    }
 
-    public Carpenter(String name, int age, boolean isKindToAnimal) {
-        super(name, age, isKindToAnimal);
+    public Carpenter(String name, int age, String profession, boolean isKindToAnimal) {
+        super(name, age, profession, isKindToAnimal);
     }
-
     public void read(SmallThing thing) {
         System.out.println(this + " читает " + thing);
     }

@@ -1,5 +1,8 @@
 package characters;
 
+
+import Exceptions.PersonNotOwnAnimalException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +20,8 @@ public class PetOwner extends Person {
         super(name);
         this.isKindToAnimal = isKindToAnimal;
     }
-    public PetOwner(String name, int age, boolean isKindToAnimal) {
-        super(name, age);
+    public PetOwner(String name, int age, String profession, boolean isKindToAnimal) {
+        super(name, age, profession);
         this.isKindToAnimal = isKindToAnimal;
     }
 
@@ -26,7 +29,15 @@ public class PetOwner extends Person {
         return isKindToAnimal;
     }
 
+    public void addPet(Animal animal) {
+        if (animal.checkPet()) {
+            pets.add(animal);
+        }
+        else {
+            System.out.println(this + "не может стать хозяином " + animal);
+        }
 
+    }
     public void ownPet(Animal animal) {
         if (animal.checkPet()) {
             pets.add(animal);
@@ -37,8 +48,23 @@ public class PetOwner extends Person {
         }
     }
     public void stopOwnPet(Animal animal) {
-        pets.remove(animal);
-        System.out.println(this + " больше не хозяин " + animal);
+        try {
+            List<Animal> allPets = getPets();
+            if (allPets.contains(animal)) {
+                pets.remove(animal);
+                System.out.println(this + " больше не хозяин " + animal);
+            }
+            else {
+                throw new PersonNotOwnAnimalException(this, animal);
+            }
+        }
+        catch (PersonNotOwnAnimalException ex) {
+            ex.printStackTrace();
+        }
+
+
+
+
     }
 
 
