@@ -71,9 +71,7 @@ public abstract class Character implements Sayable {
     }
 
     @Override
-    public void say(String phrase){
-        System.out.println(this + "говорит " + phrase);
-    };
+    public abstract void say(String phrase);
 
     public void lookAt(Person person) {
         System.out.println(this + " смотрит на " + person);

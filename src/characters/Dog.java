@@ -141,7 +141,7 @@ public class Dog extends Animal {
             boy.orderToSniff(pastDog);
             Boy.Focus focus = new Boy.Focus();
             focus.focus(boy, new SmallThing("кусочек мяса на ниточке"));
-            System.out.print("Воспоминания ярче...");
+            System.out.println("Воспоминания ярче...");
             while (Math.random() < 0.4) {
                 System.out.println(" всё ярче...");
             }
