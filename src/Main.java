@@ -1,7 +1,6 @@
 import Exceptions.PersonNotOwnAnimalException;
 import characters.*;
 import enums.*;
-import org.w3c.dom.ls.LSOutput;
 import places.Flat;
 import things.Cell;
 import things.Lamp;
